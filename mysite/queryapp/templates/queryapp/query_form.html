@@ -1,0 +1,32 @@
+<!-- queryapp/templates/queryapp/query_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Products</title>
+</head>
+<body>
+    <h1>Search for Products</h1>
+
+    <!-- Form to accept user query -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renders the form as paragraph elements -->
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display search results if products are found -->
+    {% if products %}
+        <h2>Results for "{{ query }}"</h2>
+        <ul>
+            {% for product in products %}
+                <li>{{ product.name }} - ${{ product.price }}</li>
+            {% endfor %}
+        </ul>
+    {% elif query %}
+        <!-- If no products found, display a message -->
+        <p>No results found for "{{ query }}".</p>
+    {% endif %}
+</body>
+</html> 
