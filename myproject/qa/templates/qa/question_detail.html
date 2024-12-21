@@ -1,0 +1,25 @@
+<!-- qa/templates/qa/question_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ question.title }}</title>
+</head>
+<body>
+    <h1>{{ question.title }}</h1>
+    <p>{{ question.content }}</p>
+    <p><em>Asked by {{ question.user.username }} on {{ question.created_at }}</em></p>
+
+    <h2>Replies</h2>
+    <ul>
+        {% for reply in replies %}
+            <li>{{ reply.content }} - {{ reply.user.username }} - {{ reply.created_at }}</li>
+        {% empty %}
+            <li>No replies yet.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'reply_to_question' question.id %}">Reply to this Question</a>
+</body>
+</html>
