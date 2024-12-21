@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search for Mentors</title>
+</head>
+<body>
+    <h1>Find a Mentor</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="weakness">Your Weakness:</label>
+        <input type="text" id="weakness" name="weakness" required><br><br>
+
+        <label for="start_time">Preferred Start Time:</label>
+        <input type="time" id="start_time" name="start_time" required><br><br>
+
+        <label for="end_time">Preferred End Time:</label>
+        <input type="time" id="end_time" name="end_time" required><br><br>
+
+        <label for="mode">Preferred Mode:</label>
+        <select id="mode" name="mode" required>
+            <option value="hands-on">Hands-on</option>
+            <option value="virtual">Virtual</option>
+        </select><br><br>
+
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>

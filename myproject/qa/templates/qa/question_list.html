@@ -1,0 +1,22 @@
+<!-- qa/templates/qa/question_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+</head>
+<body>
+    <h1>All Questions</h1>
+    <a href="{% url 'ask_question' %}">Ask a New Question</a>
+    <ul>
+        {% for question in questions %}
+            <li>
+                <a href="{% url 'question_detail' question.id %}">{{ question.title }}</a> - {{ question.user.username }} - {{ question.created_at }}
+            </li>
+        {% empty %}
+            <li>No questions available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
