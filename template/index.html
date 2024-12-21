@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Learning Platform</title>
+    <style>
+        /* Body style */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: black;
+            background-color: #e0f7fa; /* Cool light blue background */
+            height: 100vh;
+            padding: 0;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: cyan;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        nav a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+        }
+
+        nav a:hover {
+            background-color: darkblue;
+            color: white;
+        }
+
+        /* Modify Profile Button */
+        .modify-profile-button {
+            float: right;
+            margin-right: 15px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .modify-profile-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Main Content */
+        .content {
+            padding-top: 60px; /* Add space for the fixed navbar */
+            text-align: center;
+            padding: 50px;
+            color: black;
+        }
+
+        /* Translucent background effect */
+        .translucent {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Translucent Image Section with text on top */
+        .translucent-image-container {
+            position: relative;
+            margin: 20px; /* Apply margin on all sides */
+            height: 400px; /* Set a fixed height for the image section */
+            background-image: url("{% static 'college students.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 8px;
+        }
+
+        /* Text over the image */
+        .translucent-image-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            background: rgba(91, 185, 240, 0.5); /* Dark background for text to be readable */
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* Advantages of learning from students */ 
+        .advantages {
+            background-color: rgb(196, 233, 245);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="quiz">Quiz</a>
+        <a href="query">Query</a>
+        <a href="resources">Resource</a>
+        <a href="projectcollab">Project</a>
+        <a href="projectcollab">Collaboration</a>
+        {% if user.is_authenticated %}
+        <div style="float: right; padding: 10px;">
+            Signed In as {{ user.username }}
+            <a href="logout" class="modify-profile-button">Sign Out</a>
+            <a href="{% url 'modify_profile' %}" class="modify-profile-button">Modify Profile</a>
+        </div>
+        {% else %}
+        <a href="signup">Sign Up</a>
+        <a href="login">Login</a>
+        {% endif %}
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="translucent">
+            <h1>Welcome to the SKILL BRIDGE!</h1>
+            <p>Where kids learn from each other in a collaborative environment.</p>
+        </div>
+    </div>
+
+    <!-- Translucent Image Section -->
+    <div class="translucent-image-container">
+        <div class="translucent-image-text">
+            <p>Students learning from each other through peer collaboration.</p>
+        </div>
+    </div>
+
+    <!-- Advantages of Student Learning -->
+    <div class="advantages">
+        <h2>Advantages of Student Learning from Student</h2>
+        <ul>
+            <li><strong>Improved Engagement:</strong> Peer teaching encourages active participation and fosters a sense of responsibility in students.</li>
+            <li><strong>Deeper Understanding:</strong> Explaining concepts to others helps reinforce the student's own understanding.</li>
+            <li><strong>Confidence Boost:</strong> Students develop confidence in their knowledge when they can teach their peers.</li>
+            <li><strong>Collaboration Skills:</strong> Peer learning promotes teamwork, communication, and social skills that are essential in the modern world.</li>
+            <li><strong>Variety of Learning Styles:</strong> Students can share different approaches to learning, which may be more effective for different individuals.</li>
+        </ul>
+    </div>
+</body>
+</html>
+
+
+
+
+
