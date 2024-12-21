@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Collaboration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+        }
+        nav {
+            background-color: #00796b;
+            padding: 10px;
+            overflow: hidden;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+        nav a:hover {
+            background-color: #004d40;
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .request-card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .request-actions button {
+            margin-right: 10px;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .form-container input, .form-container select {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .form-container button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index">Home</a>
+        <a href="resource">Resources</a>
+        <a href="quiz">Quiz</a>
+        <a href="#">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h2>Project Collaboration</h2>
+
+        <!-- Form to post a collaboration request -->
+        <div class="form-container">
+            <h3>Post a Collaboration Request</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Post Request</button>
+            </form>
+        </div>
+
+        <h3>Incoming Collaboration Requests</h3>
+        {% for request in requests %}
+        <div class="request-card">
+            <p><strong>From:</strong> {{ request.from_user.username }}</p>
+            <p><strong>Skill Needed:</strong> {{ request.skill_needed }}</p>
+            <p><strong>Professionalism Level Needed:</strong> {{ request.professionalism_level_needed }}</p>
+
+            <div class="request-actions">
+                <form method="POST" action="{% url 'accept_request' request.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Accept</button>
+                </form>
+                <form method="POST" action="{% url 'reject_request' request.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background-color: red;">Reject</button>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <p>No collaboration requests yet.</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
