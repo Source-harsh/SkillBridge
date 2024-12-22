@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Chat Box</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background-color: #e0f7fa; /* Light cool blue background */
+                height: 100vh;
+                color: black;
+                overflow: hidden;
+            }
+
+            /* Navigation Bar */
+            nav {
+                background-color: cyan;
+                padding: 10px;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                z-index: 1000;
+            }
+
+            nav a {
+                color: black;
+                text-decoration: none;
+                margin-right: 20px;
+                font-size: 18px;
+            }
+
+            nav a:hover {
+                color: white;
+                background-color: darkblue;
+                padding: 5px;
+            }
+
+            /* Chatbox style */
+            .chatbox-container {
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+                padding: 20px;
+                width: 70%;
+                max-width: 600px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+
+            .chatbox {
+                max-height: 400px;
+                overflow-y: auto;
+                padding-right: 10px;
+            }
+
+            .message {
+                padding: 10px;
+                margin: 5px 0;
+                background-color: #f0f0f0;
+                border-radius: 8px;
+            }
+
+            .message.sent {
+                background-color: #d1f7c4;
+            }
+
+            .message.received {
+                background-color: #f7d1d1;
+            }
+
+            .send-form {
+                display: flex;
+                margin-top: 10px;
+            }
+
+            .send-form input {
+                flex-grow: 1;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .send-form button {
+                background-color: #007BFF;
+                color: white;
+                padding: 10px;
+                margin-left: 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .send-form button:hover {
+                background-color: #0056b3;
+            }
+
+            /* Background image styling */
+            .background-image {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("{% static 'blured.png' %}");
+                background-size: cover;
+                background-position: center;
+                filter: blur(8px);
+                z-index: -1;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation Bar -->
+        <nav>
+            <a href="{% url 'index' %}">Home</a>  <!-- Corrected Home Button Link -->
+            <a href="logout">Logout</a>
+        </nav>
+
+        <!-- Background Image -->
+        <div class="background-image"></div>
+
+        <!-- Chatbox Container -->
+        <div class="chatbox-container">
+            <div class="chatbox">
+                {% for message in messages %}
+                    <div class="message {% if message.sender == user %}sent{% else %}received{% endif %}">
+                        <strong>{{ message.sender.username }}:</strong> {{ message.content }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Send Message Form -->
+            <form method="POST" class="send-form">
+                {% csrf_token %}
+                <input type="text" name="sender_username" placeholder="Sender's username" required> <!-- Updated name -->
+                <input type="text" name="message" placeholder="Enter your message..." required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </body>
+</html>
+
